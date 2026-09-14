@@ -25,6 +25,7 @@ hr_by_season <- Teams |>
 
 ```{r}
 #| message: false
+library(tidyverse)
 
 ggplot(hr_by_season, aes(x = yearID, y = home_runs_per_game)) +
   geom_line(color = "gray70", linewidth = 1) +
@@ -55,6 +56,8 @@ ggplot(hr_by_season, aes(x = yearID, y = home_runs_per_game)) +
 
 ```{r}
 #| message: false
+library(tidyverse)
+library(Lahman)
 library(knitr)
 
 comparison <- Teams |>

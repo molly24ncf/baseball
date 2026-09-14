@@ -1,0 +1,63 @@
+---
+title: "Sluggers"
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(Lahman)
+
+leaders <- Batting |>
+  group_by(playerID) |>
+  summarise(
+    career_home_runs = sum(HR, na.rm = TRUE),
+    first_year = min(yearID, na.rm = TRUE),
+    last_year = max(yearID, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(desc(career_home_runs)) |>
+  slice_head(n = 15) |>
+  left_join(People, by = "playerID") |>
+  mutate(
+    full_name = paste(nameFirst, nameLast),
+    steroid_era_active = first_year <= 2009 & last_year >= 1994
+  ) |>
+  select(full_name, career_home_runs, first_year, last_year, steroid_era_active) |>
+  mutate(full_name = fct_reorder(full_name, career_home_runs))
+
+ggplot(leaders, aes(x = career_home_runs, y = full_name, fill = steroid_era_active)) +
+  geom_col() +
+  scale_fill_manual(
+    values = c("FALSE" = "steelblue", "TRUE" = "firebrick"),
+    labels = c("Not active in steroid era", "Active in steroid era"),
+    name = "Steroid era overlap"
+  ) +
+  labs(
+    title = "Top 15 Career Home Run Leaders by Steroid-Era Overlap",
+    x = "Career Home Runs",
+    y = "Player",
+    caption = "Source: Lahman Baseball Database"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| message: false
+library(tidyverse)
+library(Lahman)
+
+barry_bonds <- Batting |>
+  filter(playerID == "bondsba01") |>
+  group_by(yearID) |>
+  summarise(home_runs = sum(HR, na.rm = TRUE), .groups = "drop")
+
+ggplot(barry_bonds, aes(x = yearID, y = home_runs)) +
+  geom_col(fill = "firebrick") +
+  labs(
+    title = "Barry Bonds: Home Runs by Season",
+    x = "Season",
+    y = "Home Runs",
+    caption = "Source: Lahman Baseball Database"
+  ) +
+  theme_minimal()
+```
