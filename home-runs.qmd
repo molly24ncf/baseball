@@ -1,0 +1,81 @@
+---
+title: "Home runs"
+---
+
+```{r}
+#| cache: true
+#| message: false
+library(tidyverse)
+library(Lahman)
+
+shortened_seasons <- c(1918, 1919, 1981, 1994, 1995, 2020)
+
+hr_by_season <- Teams |>
+  group_by(yearID) |>
+  summarise(
+    total_home_runs = sum(HR, na.rm = TRUE),
+    total_team_games = sum(G, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    home_runs_per_game = total_home_runs / total_team_games,
+    shortened_season = yearID %in% shortened_seasons
+  )
+```
+
+```{r}
+#| message: false
+
+ggplot(hr_by_season, aes(x = yearID, y = home_runs_per_game)) +
+  geom_line(color = "gray70", linewidth = 1) +
+  geom_point(
+    data = hr_by_season |> filter(!shortened_season),
+    color = "steelblue",
+    size = 1.5,
+    show.legend = TRUE
+  ) +
+  geom_point(
+    data = hr_by_season |> filter(shortened_season),
+    aes(color = "Shortened seasons"),
+    size = 2.5,
+    show.legend = TRUE
+  ) +
+  scale_color_manual(
+    values = c("Shortened seasons" = "firebrick", "Regular seasons" = "steelblue"),
+    name = "Season type"
+  ) +
+  labs(
+    title = "Home Runs per Game by Season (Shortened Seasons Highlighted)",
+    x = "Season",
+    y = "Home Runs per Game (HR / Team-Games)",
+    caption = "Source: Lahman Baseball Database; shortened seasons are highlighted for reference."
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| message: false
+library(knitr)
+
+comparison <- Teams |>
+  filter(yearID %in% c(2019, 1981, 1994, 2020)) |>
+  group_by(yearID) |>
+  summarise(
+    total_home_runs = sum(HR, na.rm = TRUE),
+    total_team_games = sum(G, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    season = yearID,
+    home_runs_per_game = total_home_runs / total_team_games
+  ) |>
+  select(season, total_home_runs, total_team_games, home_runs_per_game) |>
+  arrange(factor(season, levels = c(2019, 1981, 1994, 2020)))
+
+comparison |>
+  knitr::kable(
+    col.names = c("Season", "Total Home Runs", "Total Team-Games", "Home Runs per Game"),
+    digits = 2,
+    caption = "Comparison of 2019 with the three suspicious seasons"
+  )
+```
