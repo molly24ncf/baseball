@@ -2,4 +2,6 @@
 title: "Major League Baseball History"
 ---
 
-This site explores the history of Major League Baseball through its data, using the Lahman database to trace teams, players, and seasons across time.
+This site explores the history of Major League Baseball through its data, using the Lahman database to trace teams, players, and seasons across time. The analysis shows that year-to-year home run totals can be misleading when seasons are shortened, but the home-runs-per-game rate reveals the underlying pattern across baseball history. The Home runs page highlights that story with a season-by-season view and a comparison of the suspicious seasons to a normal recent year.
+
+The Sluggers page complements that analysis by identifying the career home run leaders and showing how Barry Bonds’ yearly totals compare across his long career. The pages in the navbar walk through these findings step by step, so visitors can move from the broad historical patterns to the individual stars behind them.
