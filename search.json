@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "home-runs.html",
+    "href": "home-runs.html",
+    "title": "Home runs",
+    "section": "",
+    "text": "Comparison of 2019 with the three suspicious seasons\n\n\nSeason\nTotal Home Runs\nTotal Team-Games\nHome Runs per Game\n\n\n\n\n2019\n6776\n4858\n1.39\n\n\n1981\n1781\n2788\n0.64\n\n\n1994\n3306\n3200\n1.03\n\n\n2020\n2304\n1796\n1.28"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Major League Baseball History",
+    "section": "",
+    "text": "This site explores the history of Major League Baseball through its data, using the Lahman database to trace teams, players, and seasons across time. The analysis shows that year-to-year home run totals can be misleading when seasons are shortened, but the home-runs-per-game rate reveals the underlying pattern across baseball history. The Home runs page highlights that story with a season-by-season view and a comparison of the suspicious seasons to a normal recent year.\nThe Sluggers page complements that analysis by identifying the career home run leaders and showing how Barry Bonds’ yearly totals compare across his long career. The pages in the navbar walk through these findings step by step, so visitors can move from the broad historical patterns to the individual stars behind them."
+  }
+]
